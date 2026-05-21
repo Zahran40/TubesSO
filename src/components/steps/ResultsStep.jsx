@@ -3,7 +3,6 @@ import { ChevronLeft, RotateCcw, Clock, Zap, Activity, AlertCircle } from 'lucid
 import GanttChart from '../GanttChart';
 import MetricsComparison from '../MetricsComparison';
 import ProcessResultsTable from '../ProcessResultsTable';
-import { toast } from 'sonner';
 import { useState } from 'react';
 
 export default function ResultsStep({
@@ -14,6 +13,7 @@ export default function ResultsStep({
   onReset,
 }) {
   const [selectedProcess, setSelectedProcess] = useState(null);
+  const [isResultsOpen, setIsResultsOpen] = useState(true);
 
   useEffect(() => {
     // We already show a toast in App.jsx when handleRunSimulation is called, 
@@ -150,9 +150,8 @@ export default function ResultsStep({
           </p>
         </div>
 
-        {/* Two Column Layout for details */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+        {/* Stacked Layout for details */}
+        <div className="space-y-8">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
             <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
               <div className="w-2 h-6 bg-purple-500 rounded-full"></div>
@@ -167,19 +166,47 @@ export default function ResultsStep({
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
-            <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-              <div className="w-2 h-6 bg-emerald-500 rounded-full"></div>
-              Detail Hasil Penjadwalan
-            </h2>
-            <div className="flex-1">
-              <ProcessResultsTable 
-                results={currentResult}
-                selectedProcess={selectedProcess}
-                setSelectedProcess={setSelectedProcess}
-              />
-            </div>
-          </div>
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <div className="w-2 h-6 bg-emerald-500 rounded-full"></div>
+                Detail Hasil Penjadwalan
+              </h2>
 
+              {/* Close Results (only for detail panel) */}
+              {isResultsOpen ? (
+                <button
+                  type="button"
+                  onClick={() => setIsResultsOpen(false)}
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg font-bold transition-colors flex items-center gap-2 text-slate-700"
+                  aria-label="Tutup hasil"
+                >
+                  Tutup
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsResultsOpen(true)}
+                  className="px-4 py-2.5 bg-blue-50 hover:bg-blue-100 rounded-lg font-bold transition-colors flex items-center gap-2 text-blue-700"
+                >
+                  Tampilkan Hasil
+                </button>
+              )}
+            </div>
+
+            {isResultsOpen ? (
+              <div className="flex-1">
+                <ProcessResultsTable
+                  results={currentResult}
+                  selectedProcess={selectedProcess}
+                  setSelectedProcess={setSelectedProcess}
+                />
+              </div>
+            ) : (
+              <div className="mt-6 bg-slate-50 rounded-xl border border-slate-100 p-4 text-sm text-slate-600">
+                Detail hasil disembunyikan. Klik <span className="font-bold">Tampilkan Hasil</span> untuk melihat kembali.
+              </div>
+            )}
+          </div>
         </div>
 
       </div>
