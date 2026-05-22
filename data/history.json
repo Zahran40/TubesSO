@@ -5,6 +5,546 @@
         "id": "P1",
         "arrivalTime": 0,
         "burstTime": 7,
+        "priority": 1,
+        "color": "#3B82F6"
+      },
+      {
+        "id": "P2",
+        "arrivalTime": 1,
+        "burstTime": 6,
+        "priority": 1,
+        "color": "#10B981"
+      },
+      {
+        "id": "P3",
+        "arrivalTime": 2,
+        "burstTime": 5,
+        "priority": 1,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "P4",
+        "arrivalTime": 3,
+        "burstTime": 1,
+        "priority": 2,
+        "color": "#EF4444"
+      },
+      {
+        "id": "P5",
+        "arrivalTime": 4,
+        "burstTime": 6,
+        "priority": 3,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "P6",
+        "arrivalTime": 5,
+        "burstTime": 1,
+        "priority": 3,
+        "color": "#EC4899"
+      }
+    ],
+    "selectedAlgorithm": "roundRobin",
+    "quantum": 7,
+    "results": {
+      "fcfs": {
+        "name": "FCFS",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 0,
+            "burstTime": 7,
+            "priority": 1,
+            "color": "#3B82F6",
+            "startTime": 0,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 7
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 1,
+            "color": "#10B981",
+            "startTime": 7,
+            "endTime": 13,
+            "waitingTime": 6,
+            "responseTime": 6,
+            "turnaroundTime": 12
+          },
+          {
+            "id": "P3",
+            "arrivalTime": 2,
+            "burstTime": 5,
+            "priority": 1,
+            "color": "#F59E0B",
+            "startTime": 13,
+            "endTime": 18,
+            "waitingTime": 11,
+            "responseTime": 11,
+            "turnaroundTime": 16
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 1,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 18,
+            "endTime": 19,
+            "waitingTime": 15,
+            "responseTime": 15,
+            "turnaroundTime": 16
+          },
+          {
+            "id": "P5",
+            "arrivalTime": 4,
+            "burstTime": 6,
+            "priority": 3,
+            "color": "#8B5CF6",
+            "startTime": 19,
+            "endTime": 25,
+            "waitingTime": 15,
+            "responseTime": 15,
+            "turnaroundTime": 21
+          },
+          {
+            "id": "P6",
+            "arrivalTime": 5,
+            "burstTime": 1,
+            "priority": 3,
+            "color": "#EC4899",
+            "startTime": 25,
+            "endTime": 26,
+            "waitingTime": 20,
+            "responseTime": 20,
+            "turnaroundTime": 21
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P1",
+            "startTime": 0,
+            "endTime": 7,
+            "color": "#3B82F6"
+          },
+          {
+            "processId": "P2",
+            "startTime": 7,
+            "endTime": 13,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P3",
+            "startTime": 13,
+            "endTime": 18,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P4",
+            "startTime": 18,
+            "endTime": 19,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P5",
+            "startTime": 19,
+            "endTime": 25,
+            "color": "#8B5CF6"
+          },
+          {
+            "processId": "P6",
+            "startTime": 25,
+            "endTime": 26,
+            "color": "#EC4899"
+          }
+        ],
+        "averageWaitingTime": 11.166666666666666,
+        "averageResponseTime": 11.166666666666666,
+        "averageTurnaroundTime": 15.5,
+        "throughput": 0.23076923076923078
+      },
+      "sjf": {
+        "name": "SJF",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 0,
+            "burstTime": 7,
+            "priority": 1,
+            "color": "#3B82F6",
+            "startTime": 0,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 7
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 1,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 7,
+            "endTime": 8,
+            "waitingTime": 4,
+            "responseTime": 4,
+            "turnaroundTime": 5
+          },
+          {
+            "id": "P6",
+            "arrivalTime": 5,
+            "burstTime": 1,
+            "priority": 3,
+            "color": "#EC4899",
+            "startTime": 8,
+            "endTime": 9,
+            "waitingTime": 3,
+            "responseTime": 3,
+            "turnaroundTime": 4
+          },
+          {
+            "id": "P3",
+            "arrivalTime": 2,
+            "burstTime": 5,
+            "priority": 1,
+            "color": "#F59E0B",
+            "startTime": 9,
+            "endTime": 14,
+            "waitingTime": 7,
+            "responseTime": 7,
+            "turnaroundTime": 12
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 1,
+            "color": "#10B981",
+            "startTime": 14,
+            "endTime": 20,
+            "waitingTime": 13,
+            "responseTime": 13,
+            "turnaroundTime": 19
+          },
+          {
+            "id": "P5",
+            "arrivalTime": 4,
+            "burstTime": 6,
+            "priority": 3,
+            "color": "#8B5CF6",
+            "startTime": 20,
+            "endTime": 26,
+            "waitingTime": 16,
+            "responseTime": 16,
+            "turnaroundTime": 22
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P1",
+            "startTime": 0,
+            "endTime": 7,
+            "color": "#3B82F6"
+          },
+          {
+            "processId": "P4",
+            "startTime": 7,
+            "endTime": 8,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P6",
+            "startTime": 8,
+            "endTime": 9,
+            "color": "#EC4899"
+          },
+          {
+            "processId": "P3",
+            "startTime": 9,
+            "endTime": 14,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P2",
+            "startTime": 14,
+            "endTime": 20,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P5",
+            "startTime": 20,
+            "endTime": 26,
+            "color": "#8B5CF6"
+          }
+        ],
+        "averageWaitingTime": 7.166666666666667,
+        "averageResponseTime": 7.166666666666667,
+        "averageTurnaroundTime": 11.5,
+        "throughput": 0.23076923076923078
+      },
+      "roundRobin": {
+        "name": "Round Robin (Q=7)",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 0,
+            "burstTime": 7,
+            "priority": 1,
+            "color": "#3B82F6",
+            "remainingTime": 0,
+            "startTime": 0,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "firstExecution": false,
+            "turnaroundTime": 7
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 1,
+            "color": "#10B981",
+            "remainingTime": 0,
+            "startTime": 7,
+            "endTime": 13,
+            "waitingTime": 6,
+            "responseTime": 6,
+            "firstExecution": false,
+            "turnaroundTime": 12
+          },
+          {
+            "id": "P3",
+            "arrivalTime": 2,
+            "burstTime": 5,
+            "priority": 1,
+            "color": "#F59E0B",
+            "remainingTime": 0,
+            "startTime": 15,
+            "endTime": 20,
+            "waitingTime": 13,
+            "responseTime": 13,
+            "firstExecution": false,
+            "turnaroundTime": 18
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 1,
+            "priority": 2,
+            "color": "#EF4444",
+            "remainingTime": 0,
+            "startTime": 13,
+            "endTime": 14,
+            "waitingTime": 10,
+            "responseTime": 10,
+            "firstExecution": false,
+            "turnaroundTime": 11
+          },
+          {
+            "id": "P5",
+            "arrivalTime": 4,
+            "burstTime": 6,
+            "priority": 3,
+            "color": "#8B5CF6",
+            "remainingTime": 0,
+            "startTime": 20,
+            "endTime": 26,
+            "waitingTime": 16,
+            "responseTime": 16,
+            "firstExecution": false,
+            "turnaroundTime": 22
+          },
+          {
+            "id": "P6",
+            "arrivalTime": 5,
+            "burstTime": 1,
+            "priority": 3,
+            "color": "#EC4899",
+            "remainingTime": 0,
+            "startTime": 14,
+            "endTime": 15,
+            "waitingTime": 9,
+            "responseTime": 9,
+            "firstExecution": false,
+            "turnaroundTime": 10
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P1",
+            "startTime": 0,
+            "endTime": 7,
+            "color": "#3B82F6"
+          },
+          {
+            "processId": "P2",
+            "startTime": 7,
+            "endTime": 13,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P4",
+            "startTime": 13,
+            "endTime": 14,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P6",
+            "startTime": 14,
+            "endTime": 15,
+            "color": "#EC4899"
+          },
+          {
+            "processId": "P3",
+            "startTime": 15,
+            "endTime": 20,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P5",
+            "startTime": 20,
+            "endTime": 26,
+            "color": "#8B5CF6"
+          }
+        ],
+        "averageWaitingTime": 9,
+        "averageResponseTime": 9,
+        "averageTurnaroundTime": 13.333333333333334,
+        "throughput": 0.23076923076923078
+      },
+      "priority": {
+        "name": "Priority Scheduling",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 0,
+            "burstTime": 7,
+            "priority": 1,
+            "color": "#3B82F6",
+            "startTime": 0,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 7
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 1,
+            "color": "#10B981",
+            "startTime": 7,
+            "endTime": 13,
+            "waitingTime": 6,
+            "responseTime": 6,
+            "turnaroundTime": 12
+          },
+          {
+            "id": "P3",
+            "arrivalTime": 2,
+            "burstTime": 5,
+            "priority": 1,
+            "color": "#F59E0B",
+            "startTime": 13,
+            "endTime": 18,
+            "waitingTime": 11,
+            "responseTime": 11,
+            "turnaroundTime": 16
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 1,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 18,
+            "endTime": 19,
+            "waitingTime": 15,
+            "responseTime": 15,
+            "turnaroundTime": 16
+          },
+          {
+            "id": "P5",
+            "arrivalTime": 4,
+            "burstTime": 6,
+            "priority": 3,
+            "color": "#8B5CF6",
+            "startTime": 19,
+            "endTime": 25,
+            "waitingTime": 15,
+            "responseTime": 15,
+            "turnaroundTime": 21
+          },
+          {
+            "id": "P6",
+            "arrivalTime": 5,
+            "burstTime": 1,
+            "priority": 3,
+            "color": "#EC4899",
+            "startTime": 25,
+            "endTime": 26,
+            "waitingTime": 20,
+            "responseTime": 20,
+            "turnaroundTime": 21
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P1",
+            "startTime": 0,
+            "endTime": 7,
+            "color": "#3B82F6"
+          },
+          {
+            "processId": "P2",
+            "startTime": 7,
+            "endTime": 13,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P3",
+            "startTime": 13,
+            "endTime": 18,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P4",
+            "startTime": 18,
+            "endTime": 19,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P5",
+            "startTime": 19,
+            "endTime": 25,
+            "color": "#8B5CF6"
+          },
+          {
+            "processId": "P6",
+            "startTime": 25,
+            "endTime": 26,
+            "color": "#EC4899"
+          }
+        ],
+        "averageWaitingTime": 11.166666666666666,
+        "averageResponseTime": 11.166666666666666,
+        "averageTurnaroundTime": 15.5,
+        "throughput": 0.23076923076923078
+      }
+    },
+    "id": "#SIM-YOX6BS",
+    "date": "2026-05-22T04:35:54.548Z"
+  },
+  {
+    "processes": [
+      {
+        "id": "P1",
+        "arrivalTime": 0,
+        "burstTime": 7,
         "priority": 2,
         "color": "#3B82F6"
       },

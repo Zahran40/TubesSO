@@ -113,7 +113,7 @@ export const RoundRobin = (processes, quantum = 4) => {
   let currentTime = 0;
   const queue = [];
   const processStats = {};
-  const remaining = [...processes];
+  const remaining = [...processes].sort((a, b) => a.arrivalTime - b.arrivalTime);
 
   // Inisialisasi stat untuk setiap proses
   processes.forEach(p => {
@@ -128,18 +128,27 @@ export const RoundRobin = (processes, quantum = 4) => {
     };
   });
 
-  while (remaining.length > 0 || queue.length > 0) {
-    // Tambahkan proses yang sudah tiba ke queue
-    remaining.forEach((p, index) => {
-      if (p.arrivalTime <= currentTime) {
-        queue.push(p);
-        remaining.splice(index, 1);
-      }
-    });
+  // Tambahkan proses yang tiba di awal ke queue
+  const initialArrived = remaining.filter(p => p.arrivalTime <= currentTime);
+  initialArrived.forEach(p => {
+    queue.push(p);
+    const index = remaining.indexOf(p);
+    if (index > -1) remaining.splice(index, 1);
+  });
 
+  while (queue.length > 0 || remaining.length > 0) {
     if (queue.length === 0 && remaining.length > 0) {
-      currentTime = remaining[0].arrivalTime;
-      continue;
+      // Jika queue kosong, lompat ke waktu kedatangan berikutnya yang paling awal
+      const nextArrival = remaining.reduce((min, p) => Math.min(min, p.arrivalTime), Infinity);
+      currentTime = nextArrival;
+
+      // Masukkan semua proses yang tiba di waktu tersebut ke queue
+      const arrived = remaining.filter(p => p.arrivalTime <= currentTime);
+      arrived.forEach(p => {
+        queue.push(p);
+        const index = remaining.indexOf(p);
+        if (index > -1) remaining.splice(index, 1);
+      });
     }
 
     if (queue.length === 0) break;
@@ -167,8 +176,16 @@ export const RoundRobin = (processes, quantum = 4) => {
     stats.remainingTime -= executionTime;
     currentTime = endTime;
 
+    // 1. Masukkan proses baru yang sudah tiba selama masa eksekusi ini ke queue
+    const arrived = remaining.filter(p => p.arrivalTime <= currentTime);
+    arrived.forEach(p => {
+      queue.push(p);
+      const index = remaining.indexOf(p);
+      if (index > -1) remaining.splice(index, 1);
+    });
+
+    // 2. Baru kemudian masukkan kembali proses yang belum selesai (preempted) ke queue
     if (stats.remainingTime > 0) {
-      // Proses belum selesai, kembali ke queue
       queue.push(process);
     } else {
       stats.endTime = endTime;

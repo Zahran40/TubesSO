@@ -45,7 +45,11 @@ export default function App() {
     setProcesses(historyEntry.processes);
     setSelectedAlgorithm(historyEntry.selectedAlgorithm);
     setQuantum(historyEntry.quantum);
-    setSimulationResults(historyEntry.results);
+    
+    // Recalculate results so they use the updated bug-free algorithms!
+    const recalculatedResults = runAllAlgorithms(historyEntry.processes, historyEntry.quantum);
+    setSimulationResults(recalculatedResults);
+    
     setCurrentStep('results');
     toast.info(`Memuat riwayat simulasi ${historyEntry.id}`);
   };
