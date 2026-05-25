@@ -130,6 +130,17 @@ export default function GanttChart({ timeline }) {
     return ids.sort();
   }, [timeline]);
 
+  // Execution Order IDs (based on actual execution order)
+  const executionOrderIds = useMemo(() => {
+    const ids = [];
+    timeline.forEach(t => {
+      if (!ids.includes(t.processId)) {
+        ids.push(t.processId);
+      }
+    });
+    return ids;
+  }, [timeline]);
+
   // Active process details
   const activeInterval = useMemo(() => {
     return timeline.find(t => currentTime >= t.startTime && currentTime < t.endTime) || null;
@@ -193,7 +204,7 @@ export default function GanttChart({ timeline }) {
   // Show Toast when the last process completes
   useEffect(() => {
     if (timeline.length > 0 && currentTime >= finishTime && !toastShownRef.current) {
-      toast.success('Simulasi Penjadwalan CPU Selesai! 🎮🏁', {
+      toast.success('Simulasi Penjadwalan CPU Selesai', {
         description: 'Semua proses telah berhasil dieksekusi oleh CPU.',
         duration: 4000,
         position: 'top-right',
@@ -341,7 +352,7 @@ export default function GanttChart({ timeline }) {
             className={`px-5 py-2 text-white font-bold rounded-xl transition-all shadow-sm ${
               isPlaying 
                 ? 'bg-amber-500 hover:bg-amber-600 shadow-amber-100' 
-                : 'bg-blue-600 hover:bg-blue-700 shadow-blue-100'
+                : 'bg-green-600 hover:bg-green-700 shadow-green-100'
             }`}
           >
             {isPlaying ? 'Pause' : 'Play'}
@@ -372,7 +383,7 @@ export default function GanttChart({ timeline }) {
             <select
               value={animationSpeed}
               onChange={(e) => setAnimationSpeed(Number(e.target.value))}
-              className="px-2 py-1.5 border border-slate-200 rounded-lg text-sm bg-white font-semibold text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none"
+              className="px-2 py-1.5 border border-slate-200 rounded-lg text-sm bg-white font-semibold text-slate-700 focus:ring-2 focus:ring-green-500 outline-none"
             >
               <option value={0.5}>0.5x</option>
               <option value={1}>1x</option>
@@ -399,12 +410,12 @@ export default function GanttChart({ timeline }) {
             onClick={() => setMode('gd')}
             className={`px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
               mode === 'gd'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-md'
                 : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             <Gamepad2 className="w-4 h-4" />
-            Geometry Dash Mode 🎮
+            Geometry Dash Mode
           </button>
         </div>
       </div>
@@ -495,18 +506,18 @@ export default function GanttChart({ timeline }) {
         <div className="relative w-full overflow-hidden bg-white rounded-2xl border border-slate-200 shadow-lg p-6 select-none">
           {/* Level Progress Indicator */}
           <div className="flex justify-between items-center mb-4">
-            <span className="text-[11px] font-bold text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              PROCESS LEVEL: {uniqueProcessIds.join(' → ')}
+            <span className="text-[11px] font-bold text-green-700 uppercase tracking-widest flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              PROCESS LEVEL: {executionOrderIds.join(' → ')}
             </span>
             <div className="flex items-center gap-3">
               <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded">
-                TIME: {currentTime.toFixed(1)} / {maxTime.toFixed(0)}
+                TIME: {Math.min(currentTime, finishTime).toFixed(1)} / {finishTime.toFixed(0)}
               </span>
               <div className="w-32 bg-slate-200 h-2 rounded-full overflow-hidden border border-slate-300">
                 <div 
-                  className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full transition-all duration-75"
-                  style={{ width: `${(currentTime / maxTime) * 100}%` }}
+                  className="bg-gradient-to-r from-green-500 to-emerald-500 h-full transition-all duration-75"
+                  style={{ width: `${finishTime > 0 ? Math.min(100, (currentTime / finishTime) * 100) : 0}%` }}
                 />
               </div>
             </div>
@@ -515,9 +526,9 @@ export default function GanttChart({ timeline }) {
           {/* Game Viewport Container */}
           <div 
             ref={containerRef}
-            className="overflow-x-auto overflow-y-hidden border border-slate-200 rounded-xl bg-slate-50 relative scroll-smooth shadow-inner"
+            className="overflow-x-auto overflow-y-hidden border border-slate-100 rounded-xl bg-white relative scroll-smooth"
             style={{
-              backgroundImage: 'linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)',
+              backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)',
               backgroundSize: '40px 40px',
               animation: isPlaying ? `scrollGrid ${1.5 / animationSpeed}s linear infinite` : 'none',
             }}
@@ -562,28 +573,7 @@ export default function GanttChart({ timeline }) {
                 style={{ bottom: '15px', height: '1px' }}
               />
 
-              {/* Spikes Obstacles */}
-              {uniqueProcessIds.map(processId => {
-                const laneBottom = (uniqueProcessIds.length - 1 - uniqueProcessIds.indexOf(processId)) * 64 + 30;
-                const spikeTimes = generateSpikesForProcess(processId, timeline, maxTime);
-                return spikeTimes.map(spikeTime => (
-                  <div
-                    key={`spike-${processId}-${spikeTime}`}
-                    className="absolute pointer-events-none transform -translate-x-1/2"
-                    style={{
-                      left: `${(spikeTime / maxTime) * levelWidth}px`,
-                      bottom: `${laneBottom}px`,
-                    }}
-                  >
-                    <svg 
-                      className="w-4 h-4 fill-red-100 stroke-red-500 stroke-[2] drop-shadow-[0_1px_3px_rgba(239,68,68,0.3)]"
-                      viewBox="0 0 100 100"
-                    >
-                      <polygon points="50,15 85,85 15,85" />
-                    </svg>
-                  </div>
-                ));
-              })}
+              {/* Spikes Obstacles - removed */}
 
               {/* Execution Block Platforms */}
               {gdDisplayTimeline.map((item, idx) => {
@@ -683,7 +673,7 @@ export default function GanttChart({ timeline }) {
 
               {/* Final Gate (Portal) */}
               <div 
-                className="absolute w-8 border-2 border-blue-400 bg-blue-50 shadow-[0_0_12px_rgba(59,130,246,0.25)] flex flex-col justify-around items-center"
+                className="absolute w-8 border-2 border-green-400 bg-green-50 shadow-[0_0_12px_rgba(34,197,94,0.20)] flex flex-col justify-around items-center"
                 style={{
                   left: `${levelWidth - 35}px`,
                   top: '15px',
@@ -691,9 +681,9 @@ export default function GanttChart({ timeline }) {
                   borderRadius: '6px'
                 }}
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" style={{ animationDelay: '0.2s' }} />
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" style={{ animationDelay: '0.4s' }} />
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" style={{ animationDelay: '0.2s' }} />
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" style={{ animationDelay: '0.4s' }} />
               </div>
             </div>
           </div>
@@ -701,7 +691,7 @@ export default function GanttChart({ timeline }) {
           {/* HUD Info bar */}
           <div className="mt-4 flex justify-between items-center text-[10px] text-slate-500 font-mono tracking-wide">
             <span className="flex items-center gap-1">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500" />
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500" />
               Karakter kubus melompat dan berputar saat terjadi perpindahan proses (Context Switch).
             </span>
             <span className="hidden sm:inline">STYLE: CLEAN LIGHT • FPS: 60 (HW ACCEL)</span>
@@ -733,7 +723,7 @@ export default function GanttChart({ timeline }) {
           <p className="text-xs font-semibold uppercase tracking-wider mb-1 text-slate-500">Progress</p>
           <p className="text-2xl font-black text-slate-900">
             {isPlaying
-              ? `${((currentTime / maxTime) * 100).toFixed(0)}%`
+              ? `${finishTime > 0 ? Math.min(100, (currentTime / finishTime) * 100).toFixed(0) : 0}%`
               : '0%'}
           </p>
         </div>

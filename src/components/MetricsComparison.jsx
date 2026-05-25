@@ -101,9 +101,9 @@ export default function MetricsComparison({ results }) {
             <p className="text-sm text-slate-600">{bestWaitTime.toFixed(2)}</p>
           </div>
           
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
             <p className="text-xs font-medium text-slate-600">Response Time Terendah</p>
-            <p className="text-lg font-bold text-blue-700">{getBestAlgorithmName('responseTime')}</p>
+            <p className="text-lg font-bold text-green-700">{getBestAlgorithmName('responseTime')}</p>
             <p className="text-sm text-slate-600">{bestResponseTime.toFixed(2)}</p>
           </div>
           

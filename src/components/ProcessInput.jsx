@@ -203,7 +203,7 @@ export default function ProcessInput({ processes, setProcesses, quantum, setQuan
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 font-medium transition-colors"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-green-600 font-medium transition-colors"
             >
               Tambah Proses
             </button>
@@ -212,7 +212,7 @@ export default function ProcessInput({ processes, setProcesses, quantum, setQuan
       ) : (
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 font-medium transition-colors justify-center"
+          className="flex items-center gap-2 w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-green-600 font-medium transition-colors justify-center"
         >
           <Plus className="w-5 h-5" />
           Tambah Proses Baru

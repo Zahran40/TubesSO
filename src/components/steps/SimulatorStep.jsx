@@ -92,7 +92,7 @@ export default function SimulatorStep({
           <div className="lg:col-span-4 space-y-6">
             <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-sm">
                   1
                 </div>
                 <h2 className="text-lg font-bold text-slate-900">Pilih Algoritma</h2>
@@ -104,7 +104,7 @@ export default function SimulatorStep({
                     key={algo.id}
                     className={`flex items-start p-4 border rounded-xl cursor-pointer transition-all ${
                       selectedAlgorithm === algo.id 
-                      ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500' 
+                      ? 'border-green-500 bg-green-50 ring-1 ring-green-500' 
                       : 'border-slate-200 hover:border-slate-300'
                     }`}
                   >
@@ -112,16 +112,16 @@ export default function SimulatorStep({
                       <input 
                         type="radio" 
                         name="algorithm" 
-                        className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" 
+                        className="w-4 h-4 text-green-600 accent-green-600 border-slate-300 focus:ring-green-500" 
                         checked={selectedAlgorithm === algo.id}
                         onChange={() => setSelectedAlgorithm(algo.id)}
                       />
                     </div>
                     <div className="ml-3 text-sm">
-                      <span className={`block font-bold ${selectedAlgorithm === algo.id ? 'text-blue-900' : 'text-slate-900'}`}>
+                      <span className={`block font-bold ${selectedAlgorithm === algo.id ? 'text-green-900' : 'text-slate-900'}`}>
                         {algo.name}
                       </span>
-                      <span className={`block mt-0.5 ${selectedAlgorithm === algo.id ? 'text-blue-700' : 'text-slate-500'}`}>
+                      <span className={`block mt-0.5 ${selectedAlgorithm === algo.id ? 'text-green-700' : 'text-slate-500'}`}>
                         {algo.desc}
                       </span>
                     </div>
@@ -150,7 +150,7 @@ export default function SimulatorStep({
             <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm">
+                  <div className="w-8 h-8 rounded-full bg-green-100 text-green-700 font-bold flex items-center justify-center text-sm">
                     2
                   </div>
                   <h2 className="text-lg font-bold text-slate-900">Konfigurasi Proses</h2>
@@ -169,28 +169,28 @@ export default function SimulatorStep({
               <form onSubmit={handleAddProcess} className="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 p-4 bg-slate-50 rounded-xl border border-slate-100 items-start">
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 mb-1" title="ID unik untuk setiap proses (misal: P1)">ID (Unik)</label>
-                  <input type="text" placeholder="P1" required value={formData.id} onChange={e => setFormData({...formData, id: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all ${processes.some(p => p.id.toLowerCase() === formData.id.toLowerCase()) && formData.id !== '' ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-blue-500'}`} />
+                  <input type="text" placeholder="P1" required value={formData.id} onChange={e => setFormData({...formData, id: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-all ${processes.some(p => p.id.toLowerCase() === formData.id.toLowerCase()) && formData.id !== '' ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-green-500'}`} />
                   {processes.some(p => p.id.toLowerCase() === formData.id.toLowerCase()) && formData.id !== '' && (
                     <p className="text-[10px] font-medium text-red-500 mt-1">ID sudah digunakan</p>
                   )}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 mb-1" title="Waktu kedatangan proses, tidak boleh kurang dari 0">Arrival Time (≥ 0)</label>
-                  <input type="number" placeholder="0" required value={formData.arrivalTime} onChange={e => setFormData({...formData, arrivalTime: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all ${formData.arrivalTime !== '' && Number(formData.arrivalTime) < 0 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-blue-500'}`} min="0" />
+                  <input type="number" placeholder="0" required value={formData.arrivalTime} onChange={e => setFormData({...formData, arrivalTime: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-all ${formData.arrivalTime !== '' && Number(formData.arrivalTime) < 0 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-green-500'}`} min="0" />
                   {formData.arrivalTime !== '' && Number(formData.arrivalTime) < 0 && (
                     <p className="text-[10px] font-medium text-red-500 mt-1">Minimal 0</p>
                   )}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 mb-1" title="Waktu eksekusi yang dibutuhkan, minimal 1">Burst Time (≥ 1)</label>
-                  <input type="number" placeholder="1" required value={formData.burstTime} onChange={e => setFormData({...formData, burstTime: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all ${formData.burstTime !== '' && Number(formData.burstTime) < 1 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-blue-500'}`} min="1" />
+                  <input type="number" placeholder="1" required value={formData.burstTime} onChange={e => setFormData({...formData, burstTime: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-all ${formData.burstTime !== '' && Number(formData.burstTime) < 1 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-green-500'}`} min="1" />
                   {formData.burstTime !== '' && Number(formData.burstTime) < 1 && (
                     <p className="text-[10px] font-medium text-red-500 mt-1">Minimal 1</p>
                   )}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 mb-1" title="Prioritas proses (angka lebih kecil = prioritas tinggi), minimal 1">Priority (≥ 1)</label>
-                  <input type="number" placeholder="1" required value={formData.priority} onChange={e => setFormData({...formData, priority: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all ${formData.priority !== '' && Number(formData.priority) < 1 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-blue-500'}`} min="1" />
+                  <input type="number" placeholder="1" required value={formData.priority} onChange={e => setFormData({...formData, priority: e.target.value})} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-all ${formData.priority !== '' && Number(formData.priority) < 1 ? 'border-red-500 text-red-600' : 'border-slate-300 focus:border-green-500'}`} min="1" />
                   {formData.priority !== '' && Number(formData.priority) < 1 && (
                     <p className="text-[10px] font-medium text-red-500 mt-1">Minimal 1</p>
                   )}
@@ -254,7 +254,7 @@ export default function SimulatorStep({
                 }
                 onRun();
               }}
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
+              className="w-full py-4 bg-green-600 hover:bg-green-700 shadow-lg shadow-green-200 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
             >
               <Play className="w-6 h-6 fill-white" /> Jalankan Simulasi Sekarang
             </button>

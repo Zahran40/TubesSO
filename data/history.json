@@ -3,6 +3,222 @@
     "processes": [
       {
         "id": "P1",
+        "arrivalTime": 2,
+        "burstTime": 4,
+        "priority": 3,
+        "color": "#3B82F6"
+      },
+      {
+        "id": "P2",
+        "arrivalTime": 1,
+        "burstTime": 6,
+        "priority": 2,
+        "color": "#10B981"
+      }
+    ],
+    "selectedAlgorithm": "sjf",
+    "quantum": 7,
+    "results": {
+      "fcfs": {
+        "name": "FCFS",
+        "processStats": [
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#10B981",
+            "startTime": 1,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 6
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#3B82F6",
+            "startTime": 7,
+            "endTime": 11,
+            "waitingTime": 5,
+            "responseTime": 5,
+            "turnaroundTime": 9
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P2",
+            "startTime": 1,
+            "endTime": 7,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P1",
+            "startTime": 7,
+            "endTime": 11,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 2.5,
+        "averageResponseTime": 2.5,
+        "averageTurnaroundTime": 7.5,
+        "throughput": 0.18181818181818182
+      },
+      "sjf": {
+        "name": "SJF",
+        "processStats": [
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#10B981",
+            "startTime": 1,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 6
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#3B82F6",
+            "startTime": 7,
+            "endTime": 11,
+            "waitingTime": 5,
+            "responseTime": 5,
+            "turnaroundTime": 9
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P2",
+            "startTime": 1,
+            "endTime": 7,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P1",
+            "startTime": 7,
+            "endTime": 11,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 2.5,
+        "averageResponseTime": 2.5,
+        "averageTurnaroundTime": 7.5,
+        "throughput": 0.18181818181818182
+      },
+      "roundRobin": {
+        "name": "Round Robin (Q=7)",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#3B82F6",
+            "remainingTime": 0,
+            "startTime": 7,
+            "endTime": 11,
+            "waitingTime": 5,
+            "responseTime": 5,
+            "firstExecution": false,
+            "turnaroundTime": 9
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#10B981",
+            "remainingTime": 0,
+            "startTime": 1,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "firstExecution": false,
+            "turnaroundTime": 6
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P2",
+            "startTime": 1,
+            "endTime": 7,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P1",
+            "startTime": 7,
+            "endTime": 11,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 2.5,
+        "averageResponseTime": 2.5,
+        "averageTurnaroundTime": 7.5,
+        "throughput": 0.18181818181818182
+      },
+      "priority": {
+        "name": "Priority Scheduling",
+        "processStats": [
+          {
+            "id": "P2",
+            "arrivalTime": 1,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#10B981",
+            "startTime": 1,
+            "endTime": 7,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 6
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#3B82F6",
+            "startTime": 7,
+            "endTime": 11,
+            "waitingTime": 5,
+            "responseTime": 5,
+            "turnaroundTime": 9
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P2",
+            "startTime": 1,
+            "endTime": 7,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P1",
+            "startTime": 7,
+            "endTime": 11,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 2.5,
+        "averageResponseTime": 2.5,
+        "averageTurnaroundTime": 7.5,
+        "throughput": 0.18181818181818182
+      }
+    },
+    "id": "#SIM-56B1G5",
+    "date": "2026-05-25T17:40:45.747Z"
+  },
+  {
+    "processes": [
+      {
+        "id": "P1",
         "arrivalTime": 0,
         "burstTime": 7,
         "priority": 1,

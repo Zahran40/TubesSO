@@ -35,7 +35,7 @@ export default function DashboardStep({ setStep, onLoadHistory }) {
   }
 
   const stats = [
-    { label: 'Total Simulasi (Lokal)', value: totalSimulations.toString(), icon: PlayCircle, color: 'text-blue-500', bg: 'bg-blue-50' },
+    { label: 'Total Simulasi (Lokal)', value: totalSimulations.toString(), icon: PlayCircle, color: 'text-green-600', bg: 'bg-green-50' },
     { label: 'Algoritma Tersedia', value: '4', icon: BarChart3, color: 'text-green-500', bg: 'bg-green-50' },
     { label: 'Avg Wait Terbaik (Terbaru)', value: bestWaitTimeAlgo, icon: Clock, color: 'text-purple-500', bg: 'bg-purple-50' },
     { label: 'Status Server', value: 'Aktif', icon: CheckCircle2, color: 'text-amber-500', bg: 'bg-amber-50' },
@@ -53,7 +53,7 @@ export default function DashboardStep({ setStep, onLoadHistory }) {
           </div>
           <button 
             onClick={() => setStep('simulator')}
-            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-sm shadow-blue-200 transition-all flex items-center gap-2"
+            className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-sm shadow-green-200 transition-all flex items-center gap-2"
           >
             <PlayCircle className="w-5 h-5" />
             Mulai Simulasi Baru
@@ -108,18 +108,18 @@ export default function DashboardStep({ setStep, onLoadHistory }) {
                 ) : (
                   history.map((entry) => (
                     <tr key={entry.id} className="border-b border-slate-50 hover:bg-slate-50/80 transition-colors cursor-pointer group" onClick={() => onLoadHistory(entry)}>
-                      <td className="px-6 py-4 text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{entry.id}</td>
+                      <td className="px-6 py-4 text-sm font-bold text-slate-900 group-hover:text-green-600 transition-colors">{entry.id}</td>
                       <td className="px-6 py-4 text-sm text-slate-500">
                         {new Date(entry.date).toLocaleString('id-ID')}
                       </td>
                       <td className="px-6 py-4">
-                        <span className="px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-md uppercase tracking-wide">
+                        <span className="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-md uppercase tracking-wide">
                           {entry.selectedAlgorithm}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-medium text-slate-600">{entry.processes.length} Proses</td>
                       <td className="px-6 py-4 text-right">
-                        <button className="text-sm font-semibold text-blue-600 hover:text-blue-800">
+                        <button className="text-sm font-semibold text-green-600 hover:text-green-800">
                           Buka Hasil →
                         </button>
                       </td>

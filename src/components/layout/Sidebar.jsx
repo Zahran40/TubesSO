@@ -12,9 +12,9 @@ export default function Sidebar({ currentStep, setCurrentStep }) {
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center gap-3">
-          <img src="/logo.webp" alt="CPUFlow Logo" className="w-12 h-12 object-contain" />
+          <img src="/ruangcpu-logo.png" alt="RuangCPU Logo" className="w-12 h-12 object-contain" />
           <div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">CPUFlow</h1>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">RuangCPU</h1>
             <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Simulator</p>
           </div>
         </div>
@@ -32,11 +32,11 @@ export default function Sidebar({ currentStep, setCurrentStep }) {
               onClick={() => setCurrentStep && setCurrentStep(step.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                 isActive
-                  ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm'
+                  ? 'bg-green-50 text-green-700 font-semibold shadow-sm'
                   : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'
               }`}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} strokeWidth={isActive ? 2.5 : 2} />
+              <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-slate-400'}`} strokeWidth={isActive ? 2.5 : 2} />
               <span>{step.label}</span>
             </button>
           );

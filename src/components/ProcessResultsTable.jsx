@@ -54,9 +54,9 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
     <div className="space-y-4">
       {/* Overview Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-          <p className="text-xs font-medium text-blue-700 mb-1">Total Processes</p>
-          <p className="text-3xl font-bold text-blue-900">{results.processStats.length}</p>
+        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+          <p className="text-xs font-medium text-green-700 mb-1">Total Processes</p>
+          <p className="text-3xl font-bold text-green-900">{results.processStats.length}</p>
         </div>
         <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
           <p className="text-xs font-medium text-green-700 mb-1">Avg Waiting Time</p>
@@ -105,7 +105,7 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
                   onClick={() => setSelectedProcess(selectedProcess === process.id ? null : process.id)}
                   className={`border-b border-slate-200 cursor-pointer transition-colors ${
                     selectedProcess === process.id
-                      ? 'bg-blue-50 hover:bg-blue-100'
+                      ? 'bg-green-50 hover:bg-green-100'
                       : 'hover:bg-slate-50'
                   }`}
                 >
@@ -127,7 +127,7 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 rounded font-semibold">
+                    <span className="inline-block px-2 py-1 bg-slate-100 text-slate-700 rounded font-semibold">
                       {process.responseTime.toFixed(2)}
                     </span>
                   </td>
@@ -145,8 +145,8 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
 
       {/* Selected Process Details */}
       {selectedProcess && (
-        <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-6 space-y-4">
-          <h3 className="text-lg font-bold text-blue-900">
+        <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6 space-y-4">
+          <h3 className="text-lg font-bold text-green-900">
             Detail Process: {selectedProcess}
           </h3>
           
@@ -156,41 +156,41 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
               <div key={process.id} className="space-y-3">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Arrival Time</p>
-                    <p className="text-2xl font-bold text-blue-900">{process.arrivalTime}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Arrival Time</p>
+                    <p className="text-2xl font-bold text-green-900">{process.arrivalTime}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Burst Time</p>
-                    <p className="text-2xl font-bold text-blue-900">{process.burstTime}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Burst Time</p>
+                    <p className="text-2xl font-bold text-green-900">{process.burstTime}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Priority</p>
-                    <p className="text-2xl font-bold text-blue-900">{process.priority}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Priority</p>
+                    <p className="text-2xl font-bold text-green-900">{process.priority}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Start Time</p>
-                    <p className="text-2xl font-bold text-blue-900">{process.startTime}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Start Time</p>
+                    <p className="text-2xl font-bold text-green-900">{process.startTime}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">End Time</p>
-                    <p className="text-2xl font-bold text-blue-900">{process.endTime}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">End Time</p>
+                    <p className="text-2xl font-bold text-green-900">{process.endTime}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Waiting Time</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Waiting Time</p>
                     <p className="text-2xl font-bold text-red-600">{process.waitingTime.toFixed(2)}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Response Time</p>
-                    <p className="text-2xl font-bold text-blue-600">{process.responseTime.toFixed(2)}</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Response Time</p>
+                    <p className="text-2xl font-bold text-slate-700">{process.responseTime.toFixed(2)}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-blue-700 mb-1">Turnaround Time</p>
+                    <p className="text-xs font-medium text-green-800 mb-1">Turnaround Time</p>
                     <p className="text-2xl font-bold text-green-600">{process.turnaroundTime.toFixed(2)}</p>
                   </div>
                 </div>
 
                 {/* Timeline Visualization */}
-                <div className="bg-white p-4 rounded-lg border border-blue-200 space-y-2">
+                <div className="bg-white p-4 rounded-lg border border-green-200 space-y-2">
                   <p className="text-sm font-semibold text-slate-900">Timeline:</p>
                   <div className="flex items-center h-12 bg-white border border-slate-300 rounded">
                     <div

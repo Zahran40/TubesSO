@@ -24,7 +24,7 @@ export default function ResultsStep({
     return (
       <div className="flex-1 p-8 flex items-center justify-center">
         <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md w-full shadow-sm">
-          <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <AlertCircle className="w-10 h-10" strokeWidth={1.5} />
           </div>
           <h3 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight">Belum Ada Hasil</h3>
@@ -33,7 +33,7 @@ export default function ResultsStep({
           </p>
           <button 
             onClick={onBack}
-            className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-sm shadow-blue-200 transition-all"
+            className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-sm shadow-green-200 transition-all"
           >
             Kembali ke Simulator
           </button>
@@ -80,7 +80,7 @@ export default function ResultsStep({
               onClick={() => setSelectedAlgorithm(key)}
               className={`px-5 py-2.5 rounded-xl font-bold whitespace-nowrap transition-all ${
                 selectedAlgorithm === key
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-200'
+                  ? 'bg-green-600 text-white shadow-md shadow-green-200'
                   : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
               }`}
             >
@@ -94,7 +94,7 @@ export default function ResultsStep({
           <h3 className="text-xl font-bold text-slate-900 mb-4 tracking-tight">Metrik Utama</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 relative overflow-hidden group">
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center shrink-0">
                 <Clock className="w-6 h-6" />
               </div>
               <div>
@@ -141,7 +141,7 @@ export default function ResultsStep({
         {/* Gantt Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
           <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-            <div className="w-2 h-6 bg-blue-600 rounded-full"></div>
+            <div className="w-2 h-6 bg-green-600 rounded-full"></div>
             Gantt Chart - {currentResult.name}
           </h2>
           <GanttChart timeline={currentResult?.timeline || []} />
@@ -186,7 +186,7 @@ export default function ResultsStep({
                 <button
                   type="button"
                   onClick={() => setIsResultsOpen(true)}
-                  className="px-4 py-2.5 bg-blue-50 hover:bg-blue-100 rounded-lg font-bold transition-colors flex items-center gap-2 text-blue-700"
+                  className="px-4 py-2.5 bg-green-50 hover:bg-green-100 rounded-lg font-bold transition-colors flex items-center gap-2 text-green-700"
                 >
                   Tampilkan Hasil
                 </button>
