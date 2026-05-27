@@ -1,9 +1,43 @@
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronDown, ChevronUp, MessageSquare, Send, Loader2 } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { askAgent } from '../services/ai';
 
 export default function ProcessResultsTable({ results, selectedProcess, setSelectedProcess }) {
   const [sortBy, setSortBy] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
+
+  // AI Chat states
+  const [chatHistory, setChatHistory] = useState([]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [isAiTyping, setIsAiTyping] = useState(false);
+  const chatEndRef = useRef(null);
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!currentMessage.trim()) return;
+
+    const userMsg = { role: 'user', content: currentMessage };
+    const currentHistory = [...chatHistory];
+    setChatHistory([...currentHistory, userMsg]);
+    setCurrentMessage('');
+    setIsAiTyping(true);
+
+    const metrics = {
+      averageWaitingTime: results.averageWaitingTime,
+      averageResponseTime: results.averageResponseTime,
+      throughput: results.throughput,
+      processes: results.processStats
+    };
+
+    const aiResponse = await askAgent(metrics, results.timeline || [], currentMessage, currentHistory);
+    
+    setChatHistory(prev => [...prev, { role: 'assistant', content: aiResponse }]);
+    setIsAiTyping(false);
+  };
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatHistory, isAiTyping]);
 
   // Sort processes
   const sortedProcesses = [...results.processStats].sort((a, b) => {
@@ -213,6 +247,64 @@ export default function ProcessResultsTable({ results, selectedProcess, setSelec
             ))}
         </div>
       )}
+
+      {/* AI Ask Agent Section */}
+      <div className="bg-white border-2 border-green-100 rounded-xl overflow-hidden shadow-sm mt-8">
+        <div className="bg-green-50 border-b border-green-100 p-4 flex items-center gap-3">
+          <div className="p-2 bg-green-600 text-white rounded-lg shadow-sm">
+            <MessageSquare className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-bold text-green-900">AI Ask Agent</h3>
+            <p className="text-xs text-green-700">Tanyakan apapun tentang hasil penjadwalan CPU ini</p>
+          </div>
+        </div>
+        
+        <div className="h-64 overflow-y-auto p-4 space-y-4 bg-slate-50">
+          {chatHistory.length === 0 && (
+            <div className="text-center text-slate-400 text-sm mt-10">
+              Kirim pesan untuk mulai bertanya kepada AI.
+            </div>
+          )}
+          {chatHistory.map((msg, idx) => (
+            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[80%] p-3 rounded-2xl ${msg.role === 'user' ? 'bg-green-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-sm'}`}>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+              </div>
+            </div>
+          ))}
+          {isAiTyping && (
+            <div className="flex justify-start">
+              <div className="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2 text-green-600">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-xs font-semibold">AI sedang berpikir...</span>
+              </div>
+            </div>
+          )}
+          <div ref={chatEndRef} />
+        </div>
+
+        <div className="p-4 bg-white border-t border-slate-200">
+          <form onSubmit={handleSendMessage} className="flex gap-2">
+            <input
+              type="text"
+              value={currentMessage}
+              onChange={(e) => setCurrentMessage(e.target.value)}
+              placeholder="Contoh: Mengapa P2 memiliki waiting time yang tinggi?"
+              className="flex-1 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+              disabled={isAiTyping}
+            />
+            <button
+              type="submit"
+              disabled={!currentMessage.trim() || isAiTyping}
+              className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+            >
+              <Send className="w-4 h-4" />
+              <span className="font-semibold text-sm">Kirim</span>
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,9 @@
  * Proses yang datang pertama akan dieksekusi terlebih dahulu
  */
 export const FCFS = (processes) => {
+  if (!processes || processes.length === 0) {
+    return { name: 'FCFS', processStats: [], timeline: [], averageWaitingTime: 0, averageResponseTime: 0, averageTurnaroundTime: 0, throughput: 0 };
+  }
   const sorted = [...processes].sort((a, b) => a.arrivalTime - b.arrivalTime);
   const timeline = [];
   let currentTime = 0;
@@ -48,6 +51,9 @@ export const FCFS = (processes) => {
  * Proses dengan durasi eksekusi paling singkat diprioritaskan
  */
 export const SJF = (processes) => {
+  if (!processes || processes.length === 0) {
+    return { name: 'SJF', processStats: [], timeline: [], averageWaitingTime: 0, averageResponseTime: 0, averageTurnaroundTime: 0, throughput: 0 };
+  }
   const timeline = [];
   let currentTime = 0;
   const remaining = [...processes];
@@ -109,6 +115,10 @@ export const SJF = (processes) => {
  * Setiap proses mendapat jatah waktu (quantum) untuk dieksekusi secara bergilir
  */
 export const RoundRobin = (processes, quantum = 4) => {
+  const validQuantum = (!quantum || isNaN(quantum) || quantum <= 0) ? 4 : quantum;
+  if (!processes || processes.length === 0) {
+    return { name: `Round Robin (Q=${validQuantum})`, processStats: [], timeline: [], averageWaitingTime: 0, averageResponseTime: 0, averageTurnaroundTime: 0, throughput: 0 };
+  }
   const timeline = [];
   let currentTime = 0;
   const queue = [];
@@ -162,7 +172,7 @@ export const RoundRobin = (processes, quantum = 4) => {
       stats.firstExecution = false;
     }
 
-    const executionTime = Math.min(quantum, stats.remainingTime);
+    const executionTime = Math.min(validQuantum, stats.remainingTime);
     const startTime = currentTime;
     const endTime = startTime + executionTime;
 
@@ -197,7 +207,7 @@ export const RoundRobin = (processes, quantum = 4) => {
   const completedStats = Object.values(processStats);
 
   return {
-    name: `Round Robin (Q=${quantum})`,
+    name: `Round Robin (Q=${validQuantum})`,
     processStats: completedStats,
     timeline,
     averageWaitingTime: completedStats.reduce((sum, p) => sum + p.waitingTime, 0) / completedStats.length,
@@ -212,6 +222,9 @@ export const RoundRobin = (processes, quantum = 4) => {
  * Proses dengan prioritas tertinggi (nilai terendah) akan dieksekusi terlebih dahulu
  */
 export const PriorityScheduling = (processes) => {
+  if (!processes || processes.length === 0) {
+    return { name: 'Priority Scheduling', processStats: [], timeline: [], averageWaitingTime: 0, averageResponseTime: 0, averageTurnaroundTime: 0, throughput: 0 };
+  }
   const timeline = [];
   let currentTime = 0;
   const remaining = [...processes];
@@ -227,9 +240,17 @@ export const PriorityScheduling = (processes) => {
       currentTime = nextArrival;
     } else {
       // Pilih proses dengan prioritas tertinggi (nilai terendah)
-      const selected = available.reduce((min, p) => 
-        p.priority < min.priority ? p : min
-      );
+      // Tie-breaking: jika prioritas sama, pilih arrival time yang lebih awal
+      const selected = available.reduce((min, p) => {
+        const pPriority = p.priority !== undefined && !isNaN(p.priority) ? p.priority : Infinity;
+        const minPriority = min.priority !== undefined && !isNaN(min.priority) ? min.priority : Infinity;
+        
+        if (pPriority < minPriority) return p;
+        if (pPriority === minPriority) {
+          return p.arrivalTime < min.arrivalTime ? p : min;
+        }
+        return min;
+      });
 
       const startTime = currentTime;
       const endTime = startTime + selected.burstTime;

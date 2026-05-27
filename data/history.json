@@ -3,6 +3,384 @@
     "processes": [
       {
         "id": "P1",
+        "arrivalTime": 4,
+        "burstTime": 7,
+        "priority": 4,
+        "color": "#3B82F6"
+      },
+      {
+        "id": "P2",
+        "arrivalTime": 2,
+        "burstTime": 4,
+        "priority": 3,
+        "color": "#10B981"
+      },
+      {
+        "id": "P3",
+        "arrivalTime": 1,
+        "burstTime": 5,
+        "priority": 6,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "P4",
+        "arrivalTime": 3,
+        "burstTime": 6,
+        "priority": 2,
+        "color": "#EF4444"
+      }
+    ],
+    "selectedAlgorithm": "sjf",
+    "quantum": 7,
+    "results": {
+      "fcfs": {
+        "name": "FCFS",
+        "processStats": [
+          {
+            "id": "P3",
+            "arrivalTime": 1,
+            "burstTime": 5,
+            "priority": 6,
+            "color": "#F59E0B",
+            "startTime": 1,
+            "endTime": 6,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 5
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#10B981",
+            "startTime": 6,
+            "endTime": 10,
+            "waitingTime": 4,
+            "responseTime": 4,
+            "turnaroundTime": 8
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 10,
+            "endTime": 16,
+            "waitingTime": 7,
+            "responseTime": 7,
+            "turnaroundTime": 13
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 4,
+            "burstTime": 7,
+            "priority": 4,
+            "color": "#3B82F6",
+            "startTime": 16,
+            "endTime": 23,
+            "waitingTime": 12,
+            "responseTime": 12,
+            "turnaroundTime": 19
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P3",
+            "startTime": 1,
+            "endTime": 6,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P2",
+            "startTime": 6,
+            "endTime": 10,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P4",
+            "startTime": 10,
+            "endTime": 16,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P1",
+            "startTime": 16,
+            "endTime": 23,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 5.75,
+        "averageResponseTime": 5.75,
+        "averageTurnaroundTime": 11.25,
+        "throughput": 0.17391304347826086
+      },
+      "sjf": {
+        "name": "SJF",
+        "processStats": [
+          {
+            "id": "P3",
+            "arrivalTime": 1,
+            "burstTime": 5,
+            "priority": 6,
+            "color": "#F59E0B",
+            "startTime": 1,
+            "endTime": 6,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 5
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#10B981",
+            "startTime": 6,
+            "endTime": 10,
+            "waitingTime": 4,
+            "responseTime": 4,
+            "turnaroundTime": 8
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 10,
+            "endTime": 16,
+            "waitingTime": 7,
+            "responseTime": 7,
+            "turnaroundTime": 13
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 4,
+            "burstTime": 7,
+            "priority": 4,
+            "color": "#3B82F6",
+            "startTime": 16,
+            "endTime": 23,
+            "waitingTime": 12,
+            "responseTime": 12,
+            "turnaroundTime": 19
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P3",
+            "startTime": 1,
+            "endTime": 6,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P2",
+            "startTime": 6,
+            "endTime": 10,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P4",
+            "startTime": 10,
+            "endTime": 16,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P1",
+            "startTime": 16,
+            "endTime": 23,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 5.75,
+        "averageResponseTime": 5.75,
+        "averageTurnaroundTime": 11.25,
+        "throughput": 0.17391304347826086
+      },
+      "roundRobin": {
+        "name": "Round Robin (Q=7)",
+        "processStats": [
+          {
+            "id": "P1",
+            "arrivalTime": 4,
+            "burstTime": 7,
+            "priority": 4,
+            "color": "#3B82F6",
+            "remainingTime": 0,
+            "startTime": 16,
+            "endTime": 23,
+            "waitingTime": 12,
+            "responseTime": 12,
+            "firstExecution": false,
+            "turnaroundTime": 19
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#10B981",
+            "remainingTime": 0,
+            "startTime": 6,
+            "endTime": 10,
+            "waitingTime": 4,
+            "responseTime": 4,
+            "firstExecution": false,
+            "turnaroundTime": 8
+          },
+          {
+            "id": "P3",
+            "arrivalTime": 1,
+            "burstTime": 5,
+            "priority": 6,
+            "color": "#F59E0B",
+            "remainingTime": 0,
+            "startTime": 1,
+            "endTime": 6,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "firstExecution": false,
+            "turnaroundTime": 5
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#EF4444",
+            "remainingTime": 0,
+            "startTime": 10,
+            "endTime": 16,
+            "waitingTime": 7,
+            "responseTime": 7,
+            "firstExecution": false,
+            "turnaroundTime": 13
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P3",
+            "startTime": 1,
+            "endTime": 6,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P2",
+            "startTime": 6,
+            "endTime": 10,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P4",
+            "startTime": 10,
+            "endTime": 16,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P1",
+            "startTime": 16,
+            "endTime": 23,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 5.75,
+        "averageResponseTime": 5.75,
+        "averageTurnaroundTime": 11.25,
+        "throughput": 0.17391304347826086
+      },
+      "priority": {
+        "name": "Priority Scheduling",
+        "processStats": [
+          {
+            "id": "P3",
+            "arrivalTime": 1,
+            "burstTime": 5,
+            "priority": 6,
+            "color": "#F59E0B",
+            "startTime": 1,
+            "endTime": 6,
+            "waitingTime": 0,
+            "responseTime": 0,
+            "turnaroundTime": 5
+          },
+          {
+            "id": "P4",
+            "arrivalTime": 3,
+            "burstTime": 6,
+            "priority": 2,
+            "color": "#EF4444",
+            "startTime": 6,
+            "endTime": 12,
+            "waitingTime": 3,
+            "responseTime": 3,
+            "turnaroundTime": 9
+          },
+          {
+            "id": "P2",
+            "arrivalTime": 2,
+            "burstTime": 4,
+            "priority": 3,
+            "color": "#10B981",
+            "startTime": 12,
+            "endTime": 16,
+            "waitingTime": 10,
+            "responseTime": 10,
+            "turnaroundTime": 14
+          },
+          {
+            "id": "P1",
+            "arrivalTime": 4,
+            "burstTime": 7,
+            "priority": 4,
+            "color": "#3B82F6",
+            "startTime": 16,
+            "endTime": 23,
+            "waitingTime": 12,
+            "responseTime": 12,
+            "turnaroundTime": 19
+          }
+        ],
+        "timeline": [
+          {
+            "processId": "P3",
+            "startTime": 1,
+            "endTime": 6,
+            "color": "#F59E0B"
+          },
+          {
+            "processId": "P4",
+            "startTime": 6,
+            "endTime": 12,
+            "color": "#EF4444"
+          },
+          {
+            "processId": "P2",
+            "startTime": 12,
+            "endTime": 16,
+            "color": "#10B981"
+          },
+          {
+            "processId": "P1",
+            "startTime": 16,
+            "endTime": 23,
+            "color": "#3B82F6"
+          }
+        ],
+        "averageWaitingTime": 6.25,
+        "averageResponseTime": 6.25,
+        "averageTurnaroundTime": 11.75,
+        "throughput": 0.17391304347826086
+      }
+    },
+    "id": "#SIM-DLURW1",
+    "date": "2026-05-27T02:13:10.197Z"
+  },
+  {
+    "processes": [
+      {
+        "id": "P1",
         "arrivalTime": 2,
         "burstTime": 4,
         "priority": 3,

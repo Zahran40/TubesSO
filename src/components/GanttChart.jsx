@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Gamepad2, BarChart3 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Gamepad2, BarChart3, Bot } from 'lucide-react';
 import { toast } from 'sonner';
+import { generateStory } from '../services/ai';
 
 // Component for the Geometry Dash Cube Character
 function GeometryDashCube({ color, faceType, isJumping, size = 28 }) {
@@ -94,6 +95,10 @@ export default function GanttChart({ timeline }) {
   const [animationSpeed, setAnimationSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  
+  // AI Storyteller states
+  const [storySequence, setStorySequence] = useState([]);
+  const [isLoadingStory, setIsLoadingStory] = useState(false);
 
   const containerRef = useRef(null);
 
@@ -160,7 +165,6 @@ export default function GanttChart({ timeline }) {
 
   // Animasi
   const displayTimeline = useMemo(() => {
-    if (!isPlaying) return timeline;
     return timeline
       .map(t => {
         if (t.startTime >= currentTime) return null;
@@ -168,7 +172,7 @@ export default function GanttChart({ timeline }) {
         return { ...t, endTime: currentTime };
       })
       .filter(Boolean);
-  }, [timeline, isPlaying, currentTime]);
+  }, [timeline, currentTime]);
 
   // Geometry Dash mode timeline: platforms grow/reveal dynamically as currentTime progresses
   const gdDisplayTimeline = useMemo(() => {
@@ -201,6 +205,35 @@ export default function GanttChart({ timeline }) {
     }
   }, [currentTime]);
 
+  // Fetch AI Story on timeline change
+  useEffect(() => {
+    const fetchStory = async () => {
+      setIsLoadingStory(true);
+      const story = await generateStory(timeline);
+      if (story) {
+        setStorySequence(story);
+      }
+      setIsLoadingStory(false);
+    };
+    if (timeline.length > 0) {
+      fetchStory();
+    }
+  }, [timeline]);
+
+  // Current Story based on time
+  const currentStorySnippet = useMemo(() => {
+    if (!storySequence || storySequence.length === 0) return null;
+    const current = storySequence.find(s => currentTime >= s.startTime && currentTime <= s.endTime);
+    if (!current) {
+      // Find the last finished one if it's idle at the end
+      if (currentTime >= finishTime && storySequence.length > 0) {
+         return storySequence[storySequence.length - 1];
+      }
+      return null;
+    }
+    return current;
+  }, [storySequence, currentTime, finishTime]);
+
   // Show Toast when the last process completes
   useEffect(() => {
     if (timeline.length > 0 && currentTime >= finishTime && !toastShownRef.current) {
@@ -214,6 +247,14 @@ export default function GanttChart({ timeline }) {
   }, [currentTime, finishTime, timeline]);
 
   const handlePlayPause = () => {
+    if (currentTime >= finishTime && !isPlaying) {
+      setCurrentTime(0);
+      setTrail([]);
+      setRotation(0);
+      if (containerRef.current) {
+        containerRef.current.scrollLeft = 0;
+      }
+    }
     setIsPlaying(!isPlaying);
   };
 
@@ -726,6 +767,42 @@ export default function GanttChart({ timeline }) {
               ? `${finishTime > 0 ? Math.min(100, (currentTime / finishTime) * 100).toFixed(0) : 0}%`
               : '0%'}
           </p>
+        </div>
+      </div>
+
+      {/* Storyteller AI Section */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 mt-4">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="p-2 bg-green-100 text-green-600 rounded-lg">
+            <Bot className="w-5 h-5" />
+          </div>
+          <h3 className="font-bold text-slate-800">AI Storyteller</h3>
+          {isLoadingStory && (
+            <span className="ml-auto text-xs font-semibold text-slate-500 flex items-center gap-1">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              Menyusun cerita...
+            </span>
+          )}
+        </div>
+        <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 min-h-[80px] flex items-center">
+          {isLoadingStory ? (
+            <p className="text-slate-500 text-sm italic">AI sedang memahami alur proses...</p>
+          ) : currentStorySnippet ? (
+            <div className="flex gap-4 items-start w-full">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-sm" style={{ backgroundColor: activeInterval?.color || '#10b981' }}>
+                {currentStorySnippet.processId}
+              </div>
+              <div className="flex-1 bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm relative">
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  {currentStorySnippet.story}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-slate-400 text-sm italic">
+              {currentTime >= finishTime ? "Semua proses telah selesai dieksekusi." : "Menunggu proses dieksekusi..."}
+            </p>
+          )}
         </div>
       </div>
     </div>
